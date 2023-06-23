@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Quiz Website</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+.quiz-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #ccc;
+}
+h1 {
+    text-align: center;
+}
+.question {
+    display: none;
+    margin-bottom: 20px;
+}
+.question.active {
+    display: block;
+}
+p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+input[type="radio"] {
+    margin-right: 10px;
+}
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #3e8e41;
+}
+.prev-btn {
+    display: none;
+}
+footer {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #333;
+  height: 20px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 1ch;
+  margin-bottom: 1em;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+    </style>
+</head>
+<body>
+<header>
+  <nav>
+    
+    <ul>
+      <li><a>Quiz-em</a></li>
+      
+    </ul>
+  </nav>
+</header>
+    <div class="quiz-container">
+        <h1>How well do you know me?</h1>
+        <form>
+            <div class="question active" id="question1">
+                <p>Question 1: What is my favorite color?</p>
+                <label for="q1a"><input type="radio" id="q1a" name="q1" value="a">a. Blue</label><br>
+                <label for="q1b"><input type="radio" id="q1b" name="q1" value="b">b. Red</label><br>
+                <label for="q1c"><input type="radio" id="q1c" name="q1" value="c">c. Green</label><br>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+            <div class="question" id="question2">
+                <p>Question 2: What is my favorite food?</p>
+                <label for="q2a"><input type="radio" id="q2a" name="q2" value="a">a. Pizza</label><br>
+                <label for="q2b"><input type="radio" id="q2b" name="q2" value="b">b. Noodles</label><br>
+                <label for="q2c"><input type="radio" id="q2c" name="q2" value="c">c. Sushi</label><br>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+            <div class="question" id="question3">
+                <p>Question 3: What is my favorite hobby?</p>
+                <label for="q3a"><input type="radio" id="q3a" name="q3" value="a">a. Reading</label><br>
+                <label for="q3b"><input type="radio" id="q3b" name="q3" value="b">b. Listening to music</label><br>
+                <label for="q3c"><input type="radio" id="q3c" name="q3" value="c">c. Playing video games </label><br>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+            <div class="question" id="question4">
+                <p>Question 4: What is my favorite sport?</p>
+                <label for="q4a"><input type="radio" id="q4a" name="q4" value="a">a. Football</label><br>
+                <label for="q4b"><input type="radio" id="q4b" name="q4" value="b">b. Tennis</label><br>
+                <label for="q4c"><input type="radio" id="q4c" name="q4" value="c">c. Basketball</label><br>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+            <div class="question" id="question5">
+                <p>Question 5: What is my favorite music genre? </p>
+                <label for="q5a"><input type="radio" id="q5a" name="q5" value="a">a. Pop</label><br>
+                <label for="q5b"><input type="radio" id="q5b" name="q5" value="b">b. Rock</label><br>
+                <label for="q5c"><input type="radio" id="q5c" name="q5" value="c">c. Country</label><br>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+            <div class="question" id="results">
+                <h2 style="text-align: center;">Results</h2>
+                <p style="text-align: center;">You scored <span id="score"></span> out of 5</p>
+                <p>Correct answers: Your answers</p>
+                <ol>
+                    <li>Question 1 - c: <span id="q1-answer"></span></li>
+                    <li>Question 2 - b: <span id="q2-answer"></span></li>
+                    <li>Question 3 - b: <span id="q3-answer"></span></li>
+                    <li>Question 4 - c: <span id="q4-answer"></span></li>
+                    <li>Question 5 - a: <span id="q5-answer"></span></li>
+                </ol>
+            </div>
+            <button type="button" class="prev-btn">Previous</button>
+            <button type="submit" id="submit-btn">Submit</button>
+            <p><small>(click on submit button to see results)</small></p>
+        </form>
+    </div>
+<footer>
+  <div class="container">
+    <p>Copyright © 2023 Subhadip Khan. All rights reserved.</p>
+  </div>
+</footer>
+    <script>
+const form = document.querySelector('form');
+const questions = document.querySelectorAll('.question');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtns = document.querySelectorAll('.next-btn');
+const submitBtn = document.querySelector('#submit-btn');
+const scoreElem = document.querySelector('#score');
+const q1AnswerElem = document.querySelector('#q1-answer');
+const q2AnswerElem = document.querySelector('#q2-answer');
+const q3AnswerElem = document.querySelector('#q3-answer');
+const q4AnswerElem = document.querySelector('#q4-answer');
+const q5AnswerElem = document.querySelector('#q5-answer');
+let currentQuestion = 0;
+let score = 0;
+ // Show the current question and hide the others
+function showQuestion(index) {
+  questions.forEach((question) => {
+    question.classList.remove('active');
+  });
+  questions[index].classList.add('active');
+}
+ // Show the previous question
+function showPrevQuestion() {
+  currentQuestion--;
+  if (currentQuestion < 0) {
+    currentQuestion = 0;
+  }
+  showQuestion(currentQuestion);
+  if (currentQuestion === 0) {
+    prevBtn.style.display = 'none';
+  }
+}
+ // Show the next question
+function showNextQuestion() {
+  currentQuestion++;
+  if (currentQuestion >= questions.length) {
+    currentQuestion = questions.length - 1;
+  }
+  showQuestion(currentQuestion);
+  if (currentQuestion > 0) {
+    prevBtn.style.display = 'inline-block';
+  }
+}
+ // Calculate the score and show the results
+function showResults() {
+  // Hide the questions
+  questions.forEach((question) => {
+    question.style.display = 'none';
+  });
+   // Show the results
+  const numQuestions = questions.length;
+  scoreElem.textContent = score;
+  q1AnswerElem.textContent = `Question 1 - ${form.q1.value}`;
+  q2AnswerElem.textContent = `Question 2 - ${form.q2.value}`;
+  q3AnswerElem.textContent = `Question 3 - ${form.q3.value}`;
+  q4AnswerElem.textContent = `Question 4 - ${form.q4.value}`;
+  q5AnswerElem.textContent = `Question 5 - ${form.q5.value}`;
+  document.querySelector('#results').style.display = 'block';
+  prevBtn.style.display = 'none';
+  submitBtn.style.display = 'none';
+}
+ // Event listeners for the buttons
+prevBtn.addEventListener('click', showPrevQuestion);
+nextBtns.forEach((nextBtn) => {
+  nextBtn.addEventListener('click', showNextQuestion);
+});
+submitBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+   // Calculate the score
+  score = 0;
+  if (form.q1.value === 'c') {
+    score++;
+  }
+  if (form.q2.value === 'b') {
+    score++;
+  }
+  if (form.q3.value === 'b') {
+    score++;
+  }
+  if (form.q4.value === 'c') {
+    score++;
+  }
+  if (form.q5.value === 'a') {
+    score++;
+  }
+   // Show the results
+  showResults();
+});
+</script>
+
+</body>
+</html>
